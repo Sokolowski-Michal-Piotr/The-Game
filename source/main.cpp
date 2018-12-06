@@ -11,7 +11,8 @@
 int main(int argc, char* argv[])
 {
 	my::window window; {
-		window.create(sf::VideoMode(800, 600), "The Game");
+		auto settings = sf::ContextSettings{}; settings.antialiasingLevel = 4;
+		window.create(sf::VideoMode(800, 600), "The Game", sf::Style::Close, settings);
 		window.setVerticalSyncEnabled(true);
 	}
 	my::resource_manager resources; {
@@ -29,8 +30,8 @@ int main(int argc, char* argv[])
 		window.process_events();
 		current_scene->process_input();
 		current_scene->update(elapsed);
-		window.clear(sf::Color::White);
-		window.draw(current_scene);
+		window.clear(sf::Color::Magenta);
+		current_scene->draw(window);
 		window.display();
 	}
 

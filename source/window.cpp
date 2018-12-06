@@ -1,7 +1,5 @@
 #include "window.hpp"
 
-#include "game_object.hpp"
-
 void my::window::process_events()
 {
 	sf::Event event;
@@ -11,10 +9,10 @@ void my::window::process_events()
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 			this->close();
 		}
+		//else if (event.type == sf::Event::Resized)
+		//{
+		//	sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+		//	this->setView(sf::View(visibleArea));
+		//}
 	}
-}
-
-void my::window::draw(game_object * const go)
-{
-	go->draw(*this);
 }

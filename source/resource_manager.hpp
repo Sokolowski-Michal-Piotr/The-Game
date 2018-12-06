@@ -10,7 +10,9 @@ namespace my
 	public:
 		void load(const std::string& root);
 		const sf::Font& fonts(const std::string& id) const;
+		const sf::Texture& textures(const std::string& id) const;
 	protected:
 		std::unordered_map<std::string, sf::Font> fonts_;
+		std::unordered_map<std::string, sf::Texture> textures_;
 	};
 }
