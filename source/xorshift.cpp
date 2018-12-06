@@ -20,7 +20,7 @@ my::xorshift::xorshift(result_type r)
 {}
 
 my::xorshift::xorshift(std::random_device &rd)
-	: state_({rd(), rd(), rd(), rd()})
+    : state_({rd(), rd(), rd(), rd()})
 {}
 
 void my::xorshift::seed(const state_type &seed) {
@@ -38,7 +38,7 @@ void my::xorshift::seed(result_type r) {
 }
 
 void my::xorshift::seed(std::random_device &rd) {
-	state({ rd(), rd(), rd(), rd() });
+    state({ rd(), rd(), rd(), rd() });
 }
 
 void my::xorshift::discard(unsigned long long z) {
@@ -70,15 +70,15 @@ my::xorshift::result_type my::xorshift::operator()(void) {
 
 bool my::xorshift::operator==(const xorshift& other)
 {
-	return state_.w == other.state_.w
-		&& state_.x == other.state_.x
-		&& state_.y == other.state_.y
-		&& state_.z == other.state_.z;
+    return state_.w == other.state_.w
+        && state_.x == other.state_.x
+        && state_.y == other.state_.y
+        && state_.z == other.state_.z;
 }
 
 bool my::xorshift::operator!=(const xorshift& other)
 {
-	return !(*this == other);
+    return !(*this == other);
 }
 
 //bool my::operator==(const xorshift &lhs, const my::xorshift &rhs) {

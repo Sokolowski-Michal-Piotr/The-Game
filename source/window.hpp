@@ -4,9 +4,9 @@
 
 namespace my
 {
-	class window : public sf::RenderWindow
-	{
-	public:
-		void process_events();
-	};
+    class window : public sf::RenderWindow
+    {
+    public:
+        void process_events();
+    };
 }
