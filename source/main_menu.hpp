@@ -8,6 +8,7 @@
 #include "signals.hpp"
 #include "ball.hpp"
 #include "xorshift.hpp"
+#include "paddle.hpp"
 
 namespace my
 {
@@ -22,6 +23,7 @@ namespace my
     protected:
         void init_logo(const resource_manager & resources, const window & window);
         void init_balls(const resource_manager & resources, const window & window, xorshift & rng);
+        void init_paddle(const resource_manager & resources, const window & window);
 
         my::xorshift rng;
 
@@ -36,5 +38,6 @@ namespace my
         const float signal_update_rate = 0.55f;
 
         std::vector<ball> balls;
+        my::paddle paddle;
     };
 }

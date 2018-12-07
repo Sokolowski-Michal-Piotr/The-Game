@@ -8,6 +8,7 @@ void my::main_menu::init(const resource_manager & resources, const window & wind
     rng.seed(std::random_device{});
     init_logo(resources, window);
     init_balls(resources, window, rng);
+    init_paddle(resources, window);
 }
 
 void my::main_menu::process_input()
@@ -24,6 +25,8 @@ void my::main_menu::process_input()
         std::cout << "Setup sine animation." << std::endl;
         signal = &sine;
     }
+
+    paddle.process_input();
 }
 
 void my::main_menu::update(const sf::Time time_step)
@@ -39,13 +42,32 @@ void my::main_menu::update(const sf::Time time_step)
         logo.setScale(sf::Vector2f(updated_scale, updated_scale));
     }
 
+    paddle.update(time_step);
+
     for (auto& ball : balls)
+    {
         ball.update(time_step);
+
+        if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds())) {
+            auto v = ball.velocity();
+            v.y = -1.0f * fabs(v.y);
+            ball.velocity(v);
+        }
+    }
+
+    for (auto it = balls.begin(); it != balls.end(); )
+    {
+        if (it->getPosition().y > 1000.0f)
+            it = balls.erase(it);
+        else
+            it++;
+    }
 }
 
 void my::main_menu::draw(window& window)
 {
     window.clear(sf::Color::White);
+    window.draw(paddle);
     for (auto& ball : balls)
         window.draw(ball);
     window.draw(logo);
@@ -106,4 +128,10 @@ void my::main_menu::init_balls(const resource_manager & resources, const window 
         ball.velocity(velocity);
         ball.setPosition(position);
     }
+}
+
+void my::main_menu::init_paddle(const resource_manager & resources, const window & window)
+{
+    paddle.init(resources, window);
+    paddle.max_velocity(sf::Vector2f(500.0f, 0.0f));
 }

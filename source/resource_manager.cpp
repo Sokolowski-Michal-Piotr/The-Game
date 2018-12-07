@@ -20,5 +20,6 @@ void my::resource_manager::load(const std::string & root)
 {
     fonts_["bebas_neue"].loadFromFile(root + "fonts/bebas_neue.otf");
     textures_["ball"].loadFromFile(root + "textures/ball.png");
+    textures_["paddle"].loadFromFile(root + "textures/paddle.png");
     for (auto& kv : textures_) kv.second.setSmooth(true);
 }

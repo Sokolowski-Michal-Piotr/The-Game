@@ -3,7 +3,7 @@
 void my::ball::init(const resource_manager& resources, const window& window)
 {
     setTexture(resources.textures("ball"));
-    setScale(0.5f, 0.5f);
+    setScale(0.4f, 0.4f);
     window_ = &window;
 }
 
@@ -22,11 +22,11 @@ void my::ball::update(const sf::Time time_step)
 
     if (updated_position.x < 0.0f || updated_position.x > x_limit)
         velocity_.x *= -1.0f;
-    else if (updated_position.y < 0.0f || updated_position.y > y_limit)
+    else if (updated_position.y < 0.0f)
         velocity_.y *= -1.0f;
 
     updated_position.x = std::max(0.0f, std::min(updated_position.x, x_limit));
-    updated_position.y = std::max(0.0f, std::min(updated_position.y, y_limit));
+    updated_position.y = std::max(0.0f, updated_position.y);
 
     setPosition(updated_position);
 }
