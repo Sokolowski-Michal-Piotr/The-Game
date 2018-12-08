@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     my::window window; {
         auto settings = sf::ContextSettings{}; settings.antialiasingLevel = 4;
         window.create(sf::VideoMode(800, 600), "The Game", sf::Style::Close, settings);
-        window.setVerticalSyncEnabled(true);
+        window.setFramerateLimit(60);
     }
     my::resource_manager resources; {
         resources.load(my::utility::strip(argv[0], 2) + "resources/");
@@ -28,10 +28,12 @@ int main(int argc, char* argv[])
     {
         sf::Time elapsed = clock.restart();
         window.process_events();
-        current_scene->process_input();
-        current_scene->update(elapsed);
-        window.clear(sf::Color::Magenta);
-        current_scene->draw(window);
+        if (window.hasFocus()) {
+            current_scene->process_input();
+            current_scene->update(elapsed);
+            window.clear(sf::Color::Magenta);
+            current_scene->draw(window);
+        }
         window.display();
     }
 
