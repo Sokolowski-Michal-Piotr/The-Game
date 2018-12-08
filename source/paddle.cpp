@@ -1,5 +1,7 @@
 #include "paddle.hpp"
 
+#include <iostream>
+
 void my::paddle::init(const resource_manager& resources, const window& window)
 {
     setTexture(resources.textures("paddle"));
@@ -15,12 +17,20 @@ void my::paddle::init(const resource_manager& resources, const window& window)
 
 void my::paddle::process_input()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        velocity_ = -max_velocity_;
+    float factor;
+
+    if (sf::Joystick::isConnected(0)) {
+        factor = sf::Joystick::getAxisPosition(0, sf::Joystick::X) / 100;
+        if (fabs(factor) < 0.075f) factor = 0;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        factor = -1.0f;
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        velocity_ = max_velocity_;
+        factor = 1.0f;
     else
-        velocity_ = sf::Vector2f(0.0f, 0.0f);
+        factor = 0.0f;
+
+    velocity_ = factor * max_velocity_;
 }
 
 void my::paddle::update(const sf::Time time_step)
